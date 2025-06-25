@@ -1,0 +1,21 @@
+name: Vérification du format Terraform
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  terraform_fmt:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Récupération du code
+      uses: actions/checkout@v3
+
+    - name: Installation de Terraform
+      uses: hashicorp/setup-terraform@v2
+      with:
+        terraform_version: 1.5.0
+
+    - name: Vérification du format
+      run: terraform fmt -check -recursive
